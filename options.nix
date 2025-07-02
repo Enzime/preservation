@@ -316,19 +316,16 @@ let
         };
         _homeMode = lib.mkOption {
           internal = true;
-          readOnly = true;
           type = lib.types.str;
           default = config.users.users.${name}.homeMode;
         };
         _group = lib.mkOption {
           internal = true;
-          readOnly = true;
           type = lib.types.str;
           default = config.users.users.${name}.group;
         };
         _dirMode = lib.mkOption {
           internal = true;
-          readOnly = true;
           type = lib.types.str;
           default = "0755";
         };
