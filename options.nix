@@ -307,7 +307,7 @@ let
           '';
         };
         home = lib.mkOption {
-          type = with lib.types; passwdEntry path;
+          type = with lib.types; nullOr (passwdEntry path);
           default = config.users.users.${name}.home;
           defaultText = "config.users.users.\${name}.home";
           description = ''
@@ -342,7 +342,7 @@ let
               ])
             );
           default = [ ];
-          apply = map (d: d // { directory = "${attrs.config.home}/${d.directory}"; });
+          apply = map (d: d // lib.optionalAttrs (attrs.config.home != null) { directory = "${attrs.config.home}/${d.directory}"; });
           description = ''
             Specify a list of directories that should be preserved for this user.
             The paths are interpreted relative to {option}`home`.
@@ -362,7 +362,7 @@ let
               ])
             );
           default = [ ];
-          apply = map (f: f // { file = "${attrs.config.home}/${f.file}"; });
+          apply = map (f: f // lib.optionalAttrs (attrs.config.home != null) { file = "${attrs.config.home}/${f.file}"; });
           description = ''
             Specify a list of files that should be preserved for this user.
             The paths are interpreted relative to {option}`home`.
